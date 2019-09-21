@@ -8,9 +8,11 @@
 
 import React, {Fragment} from 'react';
 import OnboardPage from './containers/OnboardPage';
+import MainPage from './containers/MainPage';
+import WinPage from './containers/WinPage';
 
 const App = () => {
-  return <OnboardPage />;
+  return <WinPage />;
 };
 
 export default App;
