@@ -6,13 +6,22 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
-import OnboardPage from './containers/OnboardPage';
-import MainPage from './containers/MainPage';
-import WinPage from './containers/WinPage';
+import React from 'react';
+import {store} from './utils/store';
+import {Provider} from 'react-redux';
+import Root from './root';
 
-const App = () => {
-  return <WinPage />;
-};
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <Root />
+      </Provider>
+    );
+  }
+}
 
 export default App;

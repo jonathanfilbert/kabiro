@@ -6,31 +6,68 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {withNavigation} from 'react-navigation';
+import {connect} from 'react-redux';
+import {postNumber} from '../utils/actions/playerNumber';
 
 import {Button, ButtonText} from '../theme';
 
-const OnboardPage = () => (
-  <View style={styles.container}>
-    <View style={styles.topContainer}>
-      <Text style={styles.topText}>Selamat datang,</Text>
-      <Text style={styles.topText}>Masukin jumlah pemainnya dong</Text>
-    </View>
-    <View style={styles.midContainer}>
-      <Text style={styles.midText}>Jumlah Pemain</Text>
-      <TextInput
-        style={styles.input}
-        multiline={false}
-        keyboardType="number-pad"
-        placeholder="5"
-      />
-    </View>
-    <View style={styles.bottomContainer}>
-      <TouchableOpacity style={styles.button} underlayColor="#51C273">
-        <Text style={styles.buttonText}>LANJUT</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-);
+class OnboardPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chosenNumber: '',
+    };
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleInput(text) {
+    this.setState({
+      chosenNumber: text,
+    });
+  }
+
+  handleSubmit() {
+    this.props.postNumber(this.state.chosenNumber);
+    this.setState({
+      chosenNumber: '',
+    });
+    this.props.navigation.navigate('MainScreen');
+  }
+
+  render() {
+    return (
+      <View>
+        <View style={styles.container}>
+          <View style={styles.topContainer}>
+            <Text style={styles.topText}>Selamat datang,</Text>
+            <Text style={styles.topText}>Masukin jumlah pemainnya dong</Text>
+          </View>
+          <View style={styles.midContainer}>
+            <Text style={styles.midText}>Jumlah Pemain</Text>
+            <TextInput
+              value={this.state.chosenNumber.toString()}
+              style={styles.input}
+              multiline={false}
+              keyboardType="number-pad"
+              placeholder="5"
+              onChangeText={this.handleInput}
+            />
+          </View>
+          <View style={styles.bottomContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              underlayColor="#51C273"
+              onPress={this.handleSubmit}>
+              <Text style={styles.buttonText}>LANJUT</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -64,4 +101,13 @@ const styles = StyleSheet.create({
   buttonText: ButtonText,
 });
 
-export default OnboardPage;
+const mapDispatchToProps = dispatch => {
+  return {
+    postNumber: number => dispatch(postNumber(number)),
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(withNavigation(OnboardPage));
