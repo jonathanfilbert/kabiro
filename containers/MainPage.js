@@ -21,22 +21,26 @@ class MainPage extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <Text style={styles.heading}>Jumlah Pemain</Text>
-          <Text style={styles.subHeading}>{this.props.playerAmount} Orang</Text>
-          <Text style={styles.instruction}>Tekan tombol untuk bermain!</Text>
-        </View>
-        <View style={styles.midContainer}>
-          <Svg height="100%" width="100%" viewBox="0 0 100 100">
-            <Circle cx="50" cy="50" r="40" strokeWidth="2.5" fill="#31B057" />
-          </Svg>
-          <Text style={styles.counterMiddle}>{this.props.currentNumber}</Text>
-        </View>
-        <View>
-          <TouchableOpacity style={styles.button} onPress={this.handlePlay}>
-            <Text style={styles.buttonText}>MAIN</Text>
-          </TouchableOpacity>
+      <View style={styles.root}>
+        <View style={styles.container}>
+          <View style={styles.topContainer}>
+            <Text style={styles.heading}>Jumlah Pemain</Text>
+            <Text style={styles.subHeading}>
+              {this.props.playerAmount} Orang
+            </Text>
+            <Text style={styles.instruction}>Tekan tombol untuk bermain!</Text>
+          </View>
+          <View style={styles.midContainer}>
+            <Svg height="100%" width="100%" viewBox="0 0 100 100">
+              <Circle cx="50" cy="50" r="40" strokeWidth="2.5" fill="#31B057" />
+            </Svg>
+            <Text style={styles.counterMiddle}>{this.props.currentNumber}</Text>
+          </View>
+          <View>
+            <TouchableOpacity style={styles.button} onPress={this.handlePlay}>
+              <Text style={styles.buttonText}>MAIN</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -44,10 +48,15 @@ class MainPage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
+  root: {
+    flex: 1,
     height: '100%',
-    padding: 40,
+  },
+  container: {
+    height: '100%',
+    paddingBottom: 20,
+    paddingHorizontal: 10,
+    paddingTop: 10,
   },
   heading: {
     fontFamily: 'NeoSansPro-Regular',

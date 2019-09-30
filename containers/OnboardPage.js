@@ -9,6 +9,7 @@ import {
 import {withNavigation} from 'react-navigation';
 import {connect} from 'react-redux';
 import {postNumber} from '../utils/actions/playerNumber';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {Button, ButtonText} from '../theme';
 
@@ -38,52 +39,68 @@ class OnboardPage extends React.Component {
 
   render() {
     return (
-      <View>
-        <View style={styles.container}>
-          <View style={styles.topContainer}>
-            <Text style={styles.topText}>Selamat datang,</Text>
-            <Text style={styles.topText}>Masukin jumlah pemainnya dong</Text>
+      <View style={styles.root}>
+        <KeyboardAwareScrollView>
+          <View style={styles.container}>
+            <View style={styles.topContainer}>
+              <Text style={styles.topText}>Selamat datang,</Text>
+              <Text style={styles.topText}>Masukin jumlah pemainnya dong</Text>
+            </View>
+            <View style={styles.midContainer}>
+              <Text style={styles.midText}>Jumlah Pemain</Text>
+              <TextInput
+                value={this.state.chosenNumber.toString()}
+                style={styles.input}
+                multiline={false}
+                keyboardType="number-pad"
+                placeholder="5"
+                onChangeText={this.handleInput}
+              />
+            </View>
+            <View style={styles.bottomContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                underlayColor="#51C273"
+                onPress={this.handleSubmit}>
+                <Text style={styles.buttonText}>LANJUT</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.midContainer}>
-            <Text style={styles.midText}>Jumlah Pemain</Text>
-            <TextInput
-              value={this.state.chosenNumber.toString()}
-              style={styles.input}
-              multiline={false}
-              keyboardType="number-pad"
-              placeholder="5"
-              onChangeText={this.handleInput}
-            />
-          </View>
-          <View style={styles.bottomContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              underlayColor="#51C273"
-              onPress={this.handleSubmit}>
-              <Text style={styles.buttonText}>LANJUT</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
+  root: {
+    flex: 1,
     height: '100%',
-    marginTop: 100,
-    marginHorizontal: 10,
+  },
+  container: {
+    height: '100%',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingTop: 30,
   },
   topText: {
     fontSize: 25,
     fontFamily: 'NeoSansPro-Medium',
   },
+  topContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   midContainer: {
-    marginTop: 50,
+    height: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 60,
   },
   midText: {
+    alignSelf: 'flex-start',
     fontFamily: 'NeoSansPro-Medium',
     fontSize: 20,
   },
@@ -93,9 +110,12 @@ const styles = StyleSheet.create({
     fontFamily: 'NeoSansPro-Medium',
     fontSize: 30,
     color: '#25282B',
+    width: '100%',
   },
   bottomContainer: {
-    marginTop: 280,
+    height: '100%',
+    flex: 1,
+    paddingTop: 200,
   },
   button: Button,
   buttonText: ButtonText,
